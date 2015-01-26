@@ -20,7 +20,11 @@
     <string name="enter_crs">enter courses</string>
     <string name="enter_stdnt">enter student</string>
     <string name="enter_teachers">enter teachers</string>
+    <string name="title_activity_add_public_university">Add Public University</string>
+    <string name="title_activity_public_university_list"> Public University</string>
+    <string name="title_activity_shopping_complex_view">View Public University</string>
+    <string name="title_activity_google_map">Google Map</string>
     <string name="btnSave">Save</string>
-     <string name="addPublicUniversity">ADD</string>
+    <string name="addPublicUniversity">ADD</string>
 
 </resources>

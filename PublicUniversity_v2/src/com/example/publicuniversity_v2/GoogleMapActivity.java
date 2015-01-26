@@ -208,9 +208,7 @@ public class GoogleMapActivity extends FragmentActivity implements
 				.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 		googleMap.addMarker(marker2);
 
-		String url = makeURL(latitude, longitude, dLatitude, dLongitude);
-		connectAsyncTask myTask = new connectAsyncTask(url);
-		myTask.execute();
+		
 
 		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
