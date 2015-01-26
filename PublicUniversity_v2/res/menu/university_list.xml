@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.ftfl.shoppingcomplex.ShoppingComplexListActivity" >
+
+    <item
+        android:id="@+id/addpublicUniversity"
+        android:orderInCategory="100"
+        android:title="@string/addPublicUniversity"
+        app:showAsAction="never"/>
+
+</menu>
