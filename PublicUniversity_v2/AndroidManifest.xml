@@ -55,7 +55,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBtYQ10JXJbjJoQLCOXiz8x81UETF5TkSw" />
+            android:value="AIzaSyAEXWBnMMbDj_tmJq7K-0I7tkzpy6JJr8M" />
 
         <activity
             android:name=".GoogleMapActivity"
