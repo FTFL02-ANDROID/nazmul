@@ -89,7 +89,7 @@
                 android:text="@string/lat" />
 
             <EditText
-                android:id="@+id/addLatitude"
+                android:id="@+id/Latitude"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
@@ -110,7 +110,7 @@
                 android:text="@string/lng" />
 
             <EditText
-                android:id="@+id/addLongitude"
+                android:id="@+id/Longitude"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
