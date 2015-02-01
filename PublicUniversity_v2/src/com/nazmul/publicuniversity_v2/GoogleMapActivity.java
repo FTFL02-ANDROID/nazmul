@@ -1,4 +1,4 @@
-package com.nazmul.publcuniversity_v2;
+package com.nazmul.publicuniversity_v2;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,13 +15,12 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.nazmul.publcuniversity_v2.database.DataSources;
-import com.nazmul.publcuniversity_v2.util.PublicUniversity;
+import com.nazmul.publicuniversity_v2.database.DataSources;
+import com.nazmul.publicuniversity_v2.util.PublicUniversity;
 
-public class GoogleMapActivity extends Activity implements LocationListener{
-	// static final LatLng BCC = new LatLng(23.7519909, 90.4157172);
+public class GoogleMapActivity extends Activity implements LocationListener {
 	private GoogleMap mMap;
-	LatLng coOrdinates;
+	LatLng mCoordinates;
 	DataSources mPublicUniversityDS;
 	PublicUniversity mUpdatePublicUniversity;
 	String mID = "";
@@ -29,7 +28,7 @@ public class GoogleMapActivity extends Activity implements LocationListener{
 	String mName;
 	String mLatitude;
 	String mLongitude;
-	int latitude, longitude;
+	double m_latitude, m_longitude;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +53,17 @@ public class GoogleMapActivity extends Activity implements LocationListener{
 
 		}
 
-		latitude = Integer.parseInt(mLatitude.toString());
-		longitude = Integer.parseInt(mLatitude.toString());
-		coOrdinates = new LatLng(latitude, longitude);
+		m_latitude = Double.parseDouble(mLatitude.toString());
+		m_longitude = Double.parseDouble(mLongitude.toString());
+		mCoordinates = new LatLng(m_latitude, m_longitude);
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
 
 		Marker university = mMap.addMarker(new MarkerOptions().position(
-				coOrdinates).title(mName));
+				mCoordinates).title(mName));
 
 		// Move the camera instantly to bcc with a zoom of 15.
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coOrdinates, 15));
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mCoordinates, 15));
 
 		// Zoom in, animating the camera.
 		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
@@ -81,7 +80,7 @@ public class GoogleMapActivity extends Activity implements LocationListener{
 	@Override
 	public void onLocationChanged(Location arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

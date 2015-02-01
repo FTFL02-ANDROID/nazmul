@@ -1,4 +1,4 @@
-package com.example.publcuniversity_v2.database;
+package com.nazmul.publicuniversity_v2.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
-	// ICare Profile Table
 	public static final String UNIVERSITY_TABLE_NAME = "university";
 	public static final String UNIVERSITY_COLUMN_ID = "id";
 	public static final String UNIVERSITY_COLUMN_NAME = "name";
@@ -17,24 +16,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public static final String UNIVERSITY_COLUMN_COURSES = "courses";
 	public static final String UNIVERSITY_COLUMN_STUDENTS = "students";
 	public static final String UNIVERSITY_COLUMN_TEACHERS = "teachers";
-
+	public static final String UNIVERSITY_COLUMN_PHOTO = "photo_path";
 
 	private static final String DATABASE_NAME = "pU.db";
-	private static final int DATABASE_VERSION = 1;
-
-	// Database creation sql statement
-	private static final String DATABASE_CREATE_PROFILE = "create table "
-			+ UNIVERSITY_TABLE_NAME + "( " + UNIVERSITY_COLUMN_ID
-			+ " integer primary key autoincrement, " + " "
-			+ UNIVERSITY_COLUMN_NAME + " text not null," + " "
-			+ UNIVERSITY_COLUMN_DESCRIPTION + " text not null," + " "
-			+ UNIVERSITY_COLUMN_ADDRESS + " text not null," + " "
-			+ UNIVERSITY_COLUMN_LATITUDE + " text not null," + " "
-			+ UNIVERSITY_COLUMN_LONGITUDE + " text not null," + " "
-			+ UNIVERSITY_COLUMN_COURSES + " text not null," + " "
-			+ UNIVERSITY_COLUMN_STUDENTS + " text not null," + " "
-			+ UNIVERSITY_COLUMN_TEACHERS + " text not null);";
-
+	private static final int DATABASE_VERSION = 2;
 
 	public SQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,15 +27,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
-		database.execSQL(DATABASE_CREATE_PROFILE);
+		database.execSQL("create table university "
+				+ "(id integer primary key, name text,description text,address text,"
+				+ " latitude text,longitude text,courses text,students text,teachers text,"
+				+ "photo_path text)");
 
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.w(SQLiteHelper.class.getName(),
-				"Upgrading database from version " + oldVersion + " to "
-						+ newVersion + ", which will destroy all old data");
+		Log.w(SQLiteHelper.class.getName(), "Upgrading database from version "
+				+ oldVersion + " to " + newVersion
+				+ ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS " + UNIVERSITY_TABLE_NAME);
 		onCreate(db);
 	}

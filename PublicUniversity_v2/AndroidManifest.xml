@@ -36,32 +36,30 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.nazmul.publcuniversity_v2.AddPublicUniversityActivity"
+            android:name="com.nazmul.publicuniversity_v2.AddPublicUniversityActivity"
             android:label="@string/title_activity_add_public_university" >
         </activity>
         <activity
-            android:name="com.nazmul.publcuniversity_v2.PublicUniversityListActivity"
+            android:name="com.nazmul.publicuniversity_v2.PublicUniversityListActivity"
             android:label="@string/title_activity_public_university_list" >
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-         </intent-filter>
-            
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name="com.nazmul.publcuniversity_v2.PublicUniversityViewActivity"
+            android:name="com.nazmul.publicuniversity_v2.PublicUniversityViewActivity"
             android:label="@string/title_activity_shopping_complex_view" >
         </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDqJuWFcLNfH8rV805kigutMCjlDynt3xs" />
+            android:value="AIzaSyCmwa43DPC07iFJ8fDkZX2qgWeqeuTl_ig" />
 
         <activity
-            android:name="com.nazmul.publcuniversity_v2.GoogleMapActivity"
+            android:name="com.nazmul.publicuniversity_v2.GoogleMapActivity"
             android:label="@string/title_activity_google_map" >
-            
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.publcuniversity_v2.database;
+package com.nazmul.publicuniversity_v2.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,26 +10,24 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.publicuniversity_v2.util.PublicUniversity;
-
-;
+import com.nazmul.publicuniversity_v2.util.PublicUniversity;
 
 public class DataSources {
 
 	// Database fields
-	private SQLiteDatabase publicUniversityDatabase;
-	private SQLiteHelper publicUniversityDbHelper;
-	List<PublicUniversity> publicUniversityList = new ArrayList<PublicUniversity>();
+	private SQLiteDatabase mPublicUniversityDatabase;
+	private SQLiteHelper mPublicUniversityDbHelper;
+	List<PublicUniversity> mPublicUniversityList = new ArrayList<PublicUniversity>();
 
 	public DataSources(Context context) {
-		publicUniversityDbHelper = new SQLiteHelper(context);
+		mPublicUniversityDbHelper = new SQLiteHelper(context);
 	}
 
 	/*
 	 * open a method for writable database
 	 */
 	public void open() throws SQLException {
-		publicUniversityDatabase = publicUniversityDbHelper
+		mPublicUniversityDatabase = mPublicUniversityDbHelper
 				.getWritableDatabase();
 	}
 
@@ -37,7 +35,7 @@ public class DataSources {
 	 * close database connection
 	 */
 	public void close() {
-		publicUniversityDbHelper.close();
+		mPublicUniversityDbHelper.close();
 	}
 
 	/*
@@ -65,10 +63,12 @@ public class DataSources {
 				eInsertObject.getmStudent());
 		cv.put(SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS,
 				eInsertObject.getmTeachers());
+		cv.put(SQLiteHelper.UNIVERSITY_COLUMN_PHOTO,
+				eInsertObject.getmPhotoPath());
 
-		long check = publicUniversityDatabase.insert(
+		long check = mPublicUniversityDatabase.insert(
 				SQLiteHelper.UNIVERSITY_TABLE_NAME, null, cv);
-		publicUniversityDatabase.close();
+		mPublicUniversityDatabase.close();
 
 		this.close();
 		if (check < 0)
@@ -98,11 +98,13 @@ public class DataSources {
 				eUpdateObject.getmStudent());
 		cvUpdate.put(SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS,
 				eUpdateObject.getmTeachers());
+		cvUpdate.put(SQLiteHelper.UNIVERSITY_COLUMN_PHOTO,
+				eUpdateObject.getmPhotoPath());
 
-		int check = publicUniversityDatabase.update(
+		int check = mPublicUniversityDatabase.update(
 				SQLiteHelper.UNIVERSITY_TABLE_NAME, cvUpdate,
 				SQLiteHelper.UNIVERSITY_COLUMN_ID + "=" + eId, null);
-		publicUniversityDatabase.close();
+		mPublicUniversityDatabase.close();
 
 		this.close();
 		if (check == 0)
@@ -115,7 +117,8 @@ public class DataSources {
 	public boolean deleteData(long eId) {
 		this.open();
 		try {
-			publicUniversityDatabase.delete(SQLiteHelper.UNIVERSITY_TABLE_NAME,
+			mPublicUniversityDatabase.delete(
+					SQLiteHelper.UNIVERSITY_TABLE_NAME,
 					SQLiteHelper.UNIVERSITY_COLUMN_ID + "=" + eId, null);
 		} catch (Exception ex) {
 			Log.e("ERROR", "data insertion problem");
@@ -131,7 +134,7 @@ public class DataSources {
 	public List<PublicUniversity> publicUniversityData() {
 		this.open();
 
-		Cursor mCursor = publicUniversityDatabase.query(
+		Cursor mCursor = mPublicUniversityDatabase.query(
 				SQLiteHelper.UNIVERSITY_TABLE_NAME, new String[] {
 						SQLiteHelper.UNIVERSITY_COLUMN_ID,
 						SQLiteHelper.UNIVERSITY_COLUMN_NAME,
@@ -141,7 +144,8 @@ public class DataSources {
 						SQLiteHelper.UNIVERSITY_COLUMN_LONGITUDE,
 						SQLiteHelper.UNIVERSITY_COLUMN_COURSES,
 						SQLiteHelper.UNIVERSITY_COLUMN_STUDENTS,
-						SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS }, null, null,
+						SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS,
+						SQLiteHelper.UNIVERSITY_COLUMN_PHOTO }, null, null,
 				null, null, null);
 
 		if (mCursor != null) {
@@ -175,17 +179,19 @@ public class DataSources {
 					String mTeachers = mCursor
 							.getString(mCursor
 									.getColumnIndex(SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS));
-					// long mmId = Long.parseLong(mId);
-					publicUniversityList.add(new PublicUniversity(mId, mName,
+					String mPhotoPath = mCursor
+							.getString(mCursor
+									.getColumnIndex(SQLiteHelper.UNIVERSITY_COLUMN_PHOTO));
+					mPublicUniversityList.add(new PublicUniversity(mId, mName,
 							mDescription, mAddress, mLatitude, mLongitude,
-							mCourse, mStudent, mTeachers));
+							mCourse, mStudent, mTeachers, mPhotoPath));
 
 				} while (mCursor.moveToNext());
 			}
 			mCursor.close();
 		}
 		this.close();
-		return publicUniversityList;
+		return mPublicUniversityList;
 	}
 
 	/*
@@ -204,8 +210,9 @@ public class DataSources {
 		String mCourse;
 		String mStudent;
 		String mTeachers;
+		String mPhotoPath;
 
-		Cursor mUpdateCursor = publicUniversityDatabase.query(
+		Cursor mUpdateCursor = mPublicUniversityDatabase.query(
 				SQLiteHelper.UNIVERSITY_TABLE_NAME, new String[] {
 						SQLiteHelper.UNIVERSITY_COLUMN_NAME,
 						SQLiteHelper.UNIVERSITY_COLUMN_DESCRIPTION,
@@ -214,14 +221,14 @@ public class DataSources {
 						SQLiteHelper.UNIVERSITY_COLUMN_LONGITUDE,
 						SQLiteHelper.UNIVERSITY_COLUMN_COURSES,
 						SQLiteHelper.UNIVERSITY_COLUMN_STUDENTS,
-						SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS, },
+						SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS,
+						SQLiteHelper.UNIVERSITY_COLUMN_PHOTO },
 				SQLiteHelper.UNIVERSITY_COLUMN_ID + "=" + mActivityId, null,
 				null, null, null);
 
 		mUpdateCursor.moveToFirst();
 
-		mId = mUpdateCursor.getString(mUpdateCursor
-				.getColumnIndex(SQLiteHelper.UNIVERSITY_COLUMN_ID));
+		mId = mUpdateCursor.getString(0);
 		mName = mUpdateCursor.getString(mUpdateCursor
 				.getColumnIndex(SQLiteHelper.UNIVERSITY_COLUMN_NAME));
 		mDescription = mUpdateCursor.getString(mUpdateCursor
@@ -238,16 +245,19 @@ public class DataSources {
 				.getColumnIndex(SQLiteHelper.UNIVERSITY_COLUMN_STUDENTS));
 		mTeachers = mUpdateCursor.getString(mUpdateCursor
 				.getColumnIndex(SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS));
+		mPhotoPath = mUpdateCursor.getString(mUpdateCursor
+				.getColumnIndex(SQLiteHelper.UNIVERSITY_COLUMN_PHOTO));
 		mUpdateCursor.close();
 		informationObject = new PublicUniversity(mId, mName, mDescription,
-				mAddress, mLatitude, mLongitude, mCourse, mStudent, mTeachers);
+				mAddress, mLatitude, mLongitude, mCourse, mStudent, mTeachers,
+				mPhotoPath);
 		this.close();
 		return informationObject;
 	}
 
 	public boolean isEmpty() {
 		this.open();
-		Cursor mCursor = publicUniversityDatabase.query(
+		Cursor mCursor = mPublicUniversityDatabase.query(
 				SQLiteHelper.UNIVERSITY_TABLE_NAME, new String[] {
 						SQLiteHelper.UNIVERSITY_COLUMN_NAME,
 						SQLiteHelper.UNIVERSITY_COLUMN_DESCRIPTION,
@@ -256,8 +266,9 @@ public class DataSources {
 						SQLiteHelper.UNIVERSITY_COLUMN_LONGITUDE,
 						SQLiteHelper.UNIVERSITY_COLUMN_COURSES,
 						SQLiteHelper.UNIVERSITY_COLUMN_STUDENTS,
-						SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS},
-				null, null, null, null, null);
+						SQLiteHelper.UNIVERSITY_COLUMN_TEACHERS,
+						SQLiteHelper.UNIVERSITY_COLUMN_PHOTO }, null, null,
+				null, null, null);
 		if (mCursor.getCount() == 0) {
 			this.close();
 			return true;

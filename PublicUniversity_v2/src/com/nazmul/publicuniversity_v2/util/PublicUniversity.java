@@ -1,4 +1,4 @@
-package com.nazmul.publcuniversity_v2.util;
+package com.nazmul.publicuniversity_v2.util;
 
 public class PublicUniversity {
 
@@ -11,6 +11,15 @@ public class PublicUniversity {
 	String mCourse = "";
 	String mStudent = "";
 	String mTeachers = "";
+	String mPhotoPath = "";
+
+	public String getmPhotoPath() {
+		return mPhotoPath;
+	}
+
+	public void setmPhotoPath(String mPhotoPath) {
+		this.mPhotoPath = mPhotoPath;
+	}
 
 	public String getmId() {
 		return mId;
@@ -90,7 +99,7 @@ public class PublicUniversity {
 
 	public PublicUniversity(String mId, String mName, String mDescription,
 			String mAddress, String mLatitude, String mLongitude,
-			String mCourse, String mStudent, String mTeachers) {
+			String mCourse, String mStudent, String mTeachers, String mPhotoPath) {
 		super();
 		this.mId = mId;
 		this.mName = mName;
@@ -101,11 +110,12 @@ public class PublicUniversity {
 		this.mCourse = mCourse;
 		this.mStudent = mStudent;
 		this.mTeachers = mTeachers;
+		this.mPhotoPath = mPhotoPath;
 	}
 
 	public PublicUniversity(String mName, String mDescription, String mAddress,
 			String mLatitude, String mLongitude, String mCourse,
-			String mStudent, String mTeachers) {
+			String mStudent, String mTeachers, String mPhotoPath) {
 		super();
 		this.mName = mName;
 		this.mDescription = mDescription;
@@ -115,8 +125,7 @@ public class PublicUniversity {
 		this.mCourse = mCourse;
 		this.mStudent = mStudent;
 		this.mTeachers = mTeachers;
+		this.mPhotoPath = mPhotoPath;
 	}
-	
 
-	
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#03A9F4" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -12,7 +13,7 @@
             android:id="@+id/db_check_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="26sp"
             android:visibility="gone" />
 
@@ -25,7 +26,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
-                android:text="@string/uName" />
+                android:text="@string/uName"
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/addName"
@@ -33,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_uname" />
+                android:hint="@string/enter_uname"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,7 +48,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
-                android:text="@string/desc" />
+                android:text="@string/desc"
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/addDescription"
@@ -53,7 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_desc" />
+                android:hint="@string/enter_desc"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -65,6 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
+                android:textColor="#FFFFFF"
                 android:text="@string/addrs" />
 
             <EditText
@@ -73,8 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_adrs" />
-
+                android:hint="@string/enter_adrs"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +92,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
-                android:text="@string/lat" />
+                android:text="@string/lat"
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/Latitude"
@@ -94,8 +101,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_lat" />
-
+                android:hint="@string/enter_lat"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -107,7 +114,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
-                android:text="@string/lng" />
+                android:text="@string/lng"
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/Longitude"
@@ -115,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_lng" />
+                android:hint="@string/enter_lng"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -127,7 +136,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
-                android:text="@string/crs" />
+                android:text="@string/crs"
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/addCourses"
@@ -135,7 +145,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_crs" />
+                android:hint="@string/enter_crs"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -147,7 +158,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
-                android:text="@string/stdnt" />
+                android:text="@string/stdnt"
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/addStudent"
@@ -155,8 +167,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_stdnt" />
+                android:hint="@string/enter_stdnt"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -166,7 +180,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
-                android:text="@string/tchrs" />
+                android:text="@string/tchrs"
+                android:textColor="#FFFFFF" />
 
             <EditText
                 android:id="@+id/addTeachers"
@@ -174,10 +189,33 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
                 android:ems="10"
-                android:hint="@string/enter_teachers" />
+                android:hint="@string/enter_teachers"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="vertical" >
 
-        
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/peek"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <!-- To display picture taken -->
+
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/pic_brdr"
+                android:contentDescription="@string/hello_world" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

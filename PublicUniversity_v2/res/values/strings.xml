@@ -26,5 +26,8 @@
     <string name="title_activity_google_map">Google Map</string>
     <string name="btnSave">Save</string>
     <string name="addPublicUniversity">ADD</string>
+    <string name="pic">Take Pic</string>
+    <string name="preview">Preview</string>
+    <string name="peek">Take a peek</string>
 
 </resources>
