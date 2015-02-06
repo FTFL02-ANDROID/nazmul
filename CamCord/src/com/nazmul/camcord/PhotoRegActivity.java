@@ -1,12 +1,10 @@
 package com.nazmul.camcord; //your package name
 
-import android.location.Criteria;
+import android.app.Activity;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
 import android.widget.TextView;
 
 public class PhotoRegActivity extends Activity implements LocationListener {
@@ -14,6 +12,7 @@ public class PhotoRegActivity extends Activity implements LocationListener {
 	TextView lt, ln;
 	String provider;
 	Location l;
+	GPSTracker gps;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,31 +20,23 @@ public class PhotoRegActivity extends Activity implements LocationListener {
 		setContentView(R.layout.photoreg);
 		ln = (TextView) findViewById(R.id.LatLng);
 		// get location service
-		lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		Criteria c = new Criteria();
-		// criteria object will select best service based on
-		// Accuracy, power consumption, response, bearing and monetary cost
-		// set false to use best service otherwise it will select the default
-		// Sim network
-		// and give the location based on sim network
-		// now it will first check satellite than Internet than Sim network
-		// location
-		provider = lm.getBestProvider(c, false);
-		// now you have best provider
-		// get location
-		l = lm.getLastKnownLocation(provider);
-		if (l != null) {
-			// get latitude and longitude of the location
-			double lng = l.getLongitude();
-			double lat = l.getLatitude();
-			// display on text view
-			ln.setText("" + lng + "" + lat);
-
-		} else {
-			ln.setText("No Provider");
-			lt.setText("No Provider");
+		gps = new GPSTracker(PhotoRegActivity.this);
+        // check if GPS enabled       
+        if(gps.canGetLocation()){                  
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();  
+            ln.setText("Latitude "+String.valueOf(latitude)+"Longitude"+String.valueOf(longitude));
+            // \n is for new line
+          
+            /*mEtLatitude.setText(String.valueOf(latitude));
+            mEtLongitude.setText(String.valueOf(longitude));*/
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }    
 		}
-	}
 
 	// If you want location on changing place also than use below method
 	// otherwise remove all below methods and don't implement location listener
