@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CamCord</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="reg">Register</string>
+    <string name="ret">RETRIEVE</string>
+    <string name="title_activity_photo">PhotoActivity</string>
+    <string name="photo">Take Photo</string>
+    <string name="preview">Preview</string>
+    <string name="save">Save</string>
+    <string name="remarks">Remarks</string>
+
+</resources>
