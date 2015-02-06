@@ -11,5 +11,8 @@
     <string name="preview">Preview</string>
     <string name="save">Save</string>
     <string name="remarks">Remarks</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="distance">Distance</string>
 
 </resources>

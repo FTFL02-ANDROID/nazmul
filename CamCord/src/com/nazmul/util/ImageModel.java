@@ -6,7 +6,8 @@ public class ImageModel {
 	String mLongitude = "";
 	String mRemarks = "";
 	String mPhotoPath = "";
-	String mDateTime = "";
+	String mDate = "";
+	String mTime = "";
 
 	public int getmId() {
 		return mId;
@@ -20,58 +21,56 @@ public class ImageModel {
 		return mLatitude;
 	}
 
-	public void setmLatitude(String mLatitude) {
-		this.mLatitude = mLatitude;
-	}
+	
 
 	public String getmLongitude() {
 		return mLongitude;
 	}
 
-	public void setmLongitude(String mLongitude) {
-		this.mLongitude = mLongitude;
-	}
+	
 
 	public String getmRemarks() {
 		return mRemarks;
 	}
 
-	public void setmRemarks(String mRemarks) {
-		this.mRemarks = mRemarks;
-	}
+	
 
 	public String getmPhotoPath() {
 		return mPhotoPath;
 	}
 
-	public void setmPhotoPath(String mPhotoPath) {
-		this.mPhotoPath = mPhotoPath;
-	}
+	
 
-	public String getmDateTime() {
-		return mDateTime;
+	public String getmDate() {
+		return mDate;
 	}
-
-	public void setmDateTime(String mDateTime) {
-		this.mDateTime = mDateTime;
+	public String getmTime() {
+		return mTime;
 	}
+	
 
-	public ImageModel(int mId, String mLatitude, String mLongitude,
-			String mRemarks,String mDateTime) {
+	
+public ImageModel(String eLatitude, String eLongitude, String eRemarks,String ePhotoPath,String eDate,String eTime) {
 		super();
-		this.mId = mId;
-		this.mLatitude = mLatitude;
-		this.mLongitude = mLongitude;
-		this.mRemarks = mRemarks;
-		this.mDateTime = mDateTime;
+		this.mLatitude = eLatitude;
+		this.mLongitude = eLongitude;
+		this.mRemarks = eRemarks;
+		this.mPhotoPath = ePhotoPath;
+		this.mDate = eDate;
+		this.mTime = eTime;
 	}
 
-	public ImageModel(String mLatitude, String mLongitude, String mRemarks,String mDateTime) {
-		super();
-		this.mLatitude = mLatitude;
-		this.mLongitude = mLongitude;
-		this.mRemarks = mRemarks;
-		this.mDateTime = mDateTime;
-	}
+public ImageModel(int mId, String mLatitude, String mLongitude,
+		String mRemarks, String mPhotoPath, String mDate, String mTime) {
+	super();
+	this.mId = mId;
+	this.mLatitude = mLatitude;
+	this.mLongitude = mLongitude;
+	this.mRemarks = mRemarks;
+	this.mPhotoPath = mPhotoPath;
+	this.mDate = mDate;
+	this.mTime = mTime;
+}
+
 
 }

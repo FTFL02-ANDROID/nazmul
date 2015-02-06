@@ -17,15 +17,24 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		mRegBtn=(Button) findViewById(R.id.regBtn);
-		mRetBtn=(Button) findViewById(R.id.retBtn);
-		
+		mRegBtn = (Button) findViewById(R.id.regBtn);
+		mRetBtn = (Button) findViewById(R.id.retBtn);
+
 		mRegBtn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(),
 						PhotoActivity.class);
+				startActivity(intent);
+			}
+		});
+		mRetBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(),
+						GalaryList.class);
 				startActivity(intent);
 			}
 		});
