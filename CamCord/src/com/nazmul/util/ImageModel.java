@@ -1,76 +1,92 @@
 package com.nazmul.util;
 
 public class ImageModel {
-	int mId = 0;
-	String mLatitude = "";
-	String mLongitude = "";
-	String mRemarks = "";
-	String mPhotoPath = "";
-	String mDate = "";
-	String mTime = "";
 
-	public int getmId() {
+	String mId;
+	String mDate;
+	String mTime;
+	String mLatitude;
+	String mLongitude;
+	String mRemarks;
+	byte[] mImage;
+
+	public String getmId() {
 		return mId;
 	}
 
-	public void setmId(int mId) {
+	public void setmId(String mId) {
 		this.mId = mId;
+	}
+
+	public String getmDate() {
+		return mDate;
+	}
+
+	public void setmDate(String mDate) {
+		this.mDate = mDate;
+	}
+
+	public String getmTime() {
+		return mTime;
+	}
+
+	public void setmTime(String mTime) {
+		this.mTime = mTime;
 	}
 
 	public String getmLatitude() {
 		return mLatitude;
 	}
 
-	
+	public void setmLatitude(String mLatitude) {
+		this.mLatitude = mLatitude;
+	}
 
 	public String getmLongitude() {
 		return mLongitude;
 	}
 
-	
+	public void setmLongitude(String mLongitude) {
+		this.mLongitude = mLongitude;
+	}
 
 	public String getmRemarks() {
 		return mRemarks;
 	}
 
-	
-
-	public String getmPhotoPath() {
-		return mPhotoPath;
+	public void setmRemarks(String mRemarks) {
+		this.mRemarks = mRemarks;
 	}
 
-	
-
-	public String getmDate() {
-		return mDate;
+	public byte[] getmImage() {
+		return mImage;
 	}
-	public String getmTime() {
-		return mTime;
-	}
-	
 
-	
-public ImageModel(String eLatitude, String eLongitude, String eRemarks,String ePhotoPath,String eDate,String eTime) {
+	public void setmImage(byte[] mImage) {
+		this.mImage = mImage;
+	}
+
+	public ImageModel(String mId, String mDate, String mTime,
+			String mLatitude, String mLongitude, String mRemarks, byte[] mImage) {
 		super();
-		this.mLatitude = eLatitude;
-		this.mLongitude = eLongitude;
-		this.mRemarks = eRemarks;
-		this.mPhotoPath = ePhotoPath;
-		this.mDate = eDate;
-		this.mTime = eTime;
+		this.mId = mId;
+		this.mDate = mDate;
+		this.mTime = mTime;
+		this.mLatitude = mLatitude;
+		this.mLongitude = mLongitude;
+		this.mRemarks = mRemarks;
+		this.mImage = mImage;
 	}
 
-public ImageModel(int mId, String mLatitude, String mLongitude,
-		String mRemarks, String mPhotoPath, String mDate, String mTime) {
-	super();
-	this.mId = mId;
-	this.mLatitude = mLatitude;
-	this.mLongitude = mLongitude;
-	this.mRemarks = mRemarks;
-	this.mPhotoPath = mPhotoPath;
-	this.mDate = mDate;
-	this.mTime = mTime;
-}
-
+	public ImageModel(String mDate, String mTime, String mLatitude,
+			String mLongitude, String mRemarks, byte[] mImage) {
+		super();
+		this.mDate = mDate;
+		this.mTime = mTime;
+		this.mLatitude = mLatitude;
+		this.mLongitude = mLongitude;
+		this.mRemarks = mRemarks;
+		this.mImage = mImage;
+	}
 
 }

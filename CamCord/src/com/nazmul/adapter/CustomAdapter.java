@@ -19,24 +19,22 @@ import com.nazmul.camcord.GPSTracker;
 import com.nazmul.camcord.R;
 import com.nazmul.util.ImageModel;
 
-public class CustomAdapter extends ArrayAdapter<ImageModel> {
+public class Customadapter extends ArrayAdapter<ImageModel> {
 
 	private static LayoutInflater mInflater = null;
 
-	List<ImageModel> mGalary;
-	public String mImage;
-	String yourDoubleString;
-    String yourlongitudeString;
+	List<ImageModel> mImages;
+	public byte[] mImage;
+	String yourLatitude;
+	String yourlongitude;
 	String provider;
-	Location l;
-	// GPSTracker class
-    GPSTracker gps; 
+	Location location;
+	GPSTracker gps;
 
+	public Customadapter(Activity context, List<ImageModel> eImages) {
+		super(context, R.layout.activity_image_list, eImages);
+		this.mImages = eImages;
 
-	public CustomAdapter(Activity context, List<ImageModel> eGalary) {
-		super(context, R.layout.activity_image_list, eGalary);
-		this.mGalary = eGalary;
-		
 		/*********** Layout inflator to call external xml layout () ***********/
 		mInflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,14 +51,14 @@ public class CustomAdapter extends ArrayAdapter<ImageModel> {
 		public TextView mDescription;
 		public TextView mDistance;
 		public ImageView mIvImage;
-		
-		
-	
 
 	}
-	
-	 // convert from byte array to bitmap
-    
+
+	// convert from byte array to bitmap
+	public static Bitmap getImage(byte[] image) {
+		return BitmapFactory.decodeByteArray(image, 0, image.length);
+	}
+
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -80,11 +78,10 @@ public class CustomAdapter extends ArrayAdapter<ImageModel> {
 			holder.mTime = (TextView) vi.findViewById(R.id.tvTime);
 			holder.mLatitude = (TextView) vi.findViewById(R.id.tvLatitude);
 			holder.mLongitude = (TextView) vi.findViewById(R.id.tvLongitude);
-			holder.mDescription = (TextView) vi.findViewById(R.id.tvremarks);
+			holder.mDescription = (TextView) vi
+					.findViewById(R.id.tvDescription);
 			holder.mDistance = (TextView) vi.findViewById(R.id.tvDistance);
 			holder.mIvImage = (ImageView) vi.findViewById(R.id.ivImage);
-			
-			
 
 			/************ Set holder with LayoutInflater ************/
 			vi.setTag(holder);
@@ -93,57 +90,58 @@ public class CustomAdapter extends ArrayAdapter<ImageModel> {
 		}
 
 		ImageModel image;
-		image = mGalary.get(position);
+		image = mImages.get(position);
 
-		holder.mId.setText(image.getmId());
-		holder.mDate.setText("Date: "+image.getmDate().toString());
-		holder.mTime.setText("Time: " +image.getmTime().toString());
+		holder.mId.setText(image.getmId().toString());
+		holder.mDate.setText("Date: " + image.getmDate().toString());
+		holder.mTime.setText("Time: " + image.getmTime().toString());
 		holder.mLatitude.setText(image.getmLatitude().toString());
 		holder.mLongitude.setText(image.getmLongitude().toString());
-		holder.mDescription.setText("Description: "+image.getmRemarks().toString());
+		holder.mDescription.setText("Description: "
+				+ image.getmRemarks().toString());
 		holder.mDistance = (TextView) vi.findViewById(R.id.tvDistance);
-		
 
+		// create class object
+		gps = new GPSTracker(getContext());
+		// check if GPS enabled
+		if (gps.canGetLocation()) {
+			double latitude = gps.getLatitude();
+			double longitude = gps.getLongitude();
 
-		 // create class object
-       gps = new GPSTracker(getContext());
-       // check if GPS enabled       
-       if(gps.canGetLocation()){                  
-           double latitude = gps.getLatitude();
-           double longitude = gps.getLongitude();   
-           
-           yourDoubleString = String.valueOf(latitude);
-           yourlongitudeString = String.valueOf(longitude);
-           // \n is for new line
-         
-       }else{
-           // can't get location
-           // GPS or Network is not enabled
-           // Ask user to enable GPS/network in settings
-           gps.showSettingsAlert();
-       }        
-		
-		Location l1=new Location("One");
-		l1.setLatitude(Double.parseDouble(yourDoubleString));
-		l1.setLongitude(Double.parseDouble(yourlongitudeString));
-		 
-		     
-		Location l2=new Location("Two");
+			yourLatitude = String.valueOf(latitude);
+			yourlongitude = String.valueOf(longitude);
+			// \n is for new line
+
+		} else {
+			// can't get location
+			// GPS or Network is not enabled
+			// Ask user to enable GPS/network in settings
+			gps.showSettingsAlert();
+		}
+
+		Location l1 = new Location("One");
+		l1.setLatitude(Double.parseDouble(yourLatitude));
+		l1.setLongitude(Double.parseDouble(yourlongitude));
+
+		Location l2 = new Location("Two");
 		l2.setLatitude(Double.parseDouble(image.getmLatitude().toString()));
 		l2.setLongitude(Double.parseDouble(image.getmLongitude().toString()));
-		     
-		float distance_bw_one_and_two=l1.distanceTo(l2);
-		
-		holder.mDistance.setText("Distance: "+String.valueOf(distance_bw_one_and_two));
-		
-		/*mImage = image.getmPhotoPath();
-		holder.mIvImage.setImageURI(mImage);;*/
-		Bitmap image2 = BitmapFactory.decodeFile(image.getmPhotoPath());
-		holder.mIvImage.setImageBitmap(image2);
 
-		
-		
-		
+		float distance_bw_one_and_two = Math.round(l1.distanceTo(l2));
+		float distance = 0;
+		if (distance_bw_one_and_two > 1000) {
+			distance = distance_bw_one_and_two / 1000;
+			holder.mDistance.setText("Distance: " + String.valueOf(distance)
+					+ "km");
+		} else {
+			holder.mDistance.setText("Distance: "
+					+ String.valueOf(distance_bw_one_and_two) + "m");
+		}
+
+		mImage = image.getmImage();
+		holder.mIvImage.setImageBitmap(getImage(mImage));
+		;
+
 		return vi;
 	}
 }
