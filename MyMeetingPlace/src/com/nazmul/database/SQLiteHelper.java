@@ -1,0 +1,51 @@
+package com.nazmul.database;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+public class SQLiteHelper extends SQLiteOpenHelper {
+
+	public static final String DATABASE_NAME = "myMeetingPlaces.db";
+	private static final int DATABASE_VERSION = 1;
+
+	public static final String TABLE_PLACE = "meeting_place";
+	public static final String COL_PLACE_ID = "place_id";
+	public static final String COL_PLACE_DATE = "date";
+	public static final String COL_PLACE_TIME = "time";
+	public static final String COL_PLACE_LATITUDE = "latitude";
+	public static final String COL_PLACE_LONGITUDE = "longitude";
+	public static final String COL_PLACE_DESCRIPTION = "description";
+	public static final String COL_IMAGE = "image";
+
+	// Database creation sql statement
+	private static final String TABLE_CREATE_PLACE = "create table "
+			+ TABLE_PLACE + "(" + COL_PLACE_ID
+			+ " integer primary key autoincrement, " + COL_PLACE_DATE
+			+ " text not null," + COL_PLACE_TIME + " text not null,"
+			+ COL_PLACE_LATITUDE + " text not null," + COL_PLACE_LONGITUDE
+			+ " text not null," + COL_PLACE_DESCRIPTION + " text not null ,"
+			+ COL_IMAGE + " BLOB not null);";
+
+	public SQLiteHelper(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase database) {
+
+		database.execSQL(TABLE_CREATE_PLACE);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		Log.w(SQLiteHelper.class.getName(), "Upgrading database from version "
+				+ oldVersion + " to " + newVersion
+				+ ", which will destroy all old data");
+
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLACE);
+		onCreate(db);
+	}
+
+}
