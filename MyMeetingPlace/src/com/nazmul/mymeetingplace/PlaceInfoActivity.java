@@ -1,8 +1,8 @@
 package com.nazmul.mymeetingplace;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -10,7 +10,6 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
@@ -19,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +31,7 @@ import com.nazmul.util.PlacesModel;
 public class PlaceInfoActivity<MainActivity> extends Activity {
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 	ImageView mIvPhotoView = null;
-	String mCurrentPhotoPath = "";
+	static String mCurrentPhotoPath = "";
 	EditText mEtDate = null;
 	EditText mEtTime = null;
 	EditText mEtLatitude = null;
@@ -44,9 +44,11 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 	String mLatitude = "";
 	String mLongitude = "";
 	String mDescription = "";
-	byte[] mImage = null;
+	String mImage;
 	PlacesModel mGalery = null;
 	String mID = "";
+	Long mLId;
+	PlacesModel mUpdatePlaces = null;
 	DataSource mImageDS = null;
 	LocationManager lm;
 
@@ -54,11 +56,14 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 	Location l;
 	// GPSTracker class
 	GPSTracker gps;
+	private Uri mFileUri = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.placesinfo);
+		Intent mActivityIntent = getIntent();
+		mID = mActivityIntent.getStringExtra("id");
 
 		mEtLatitude = (EditText) this.findViewById(R.id.etLatitude);
 		mEtLongitude = (EditText) this.findViewById(R.id.etLongitude);
@@ -67,21 +72,70 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 		mIvPhotoView = (ImageView) this.findViewById(R.id.ivTakePhoto);
 
 		// create class object
-		gps = new GPSTracker(PlaceInfoActivity.this);
-		// check if GPS enabled
-		if (gps.canGetLocation()) {
-			double latitude = gps.getLatitude();
-			double longitude = gps.getLongitude();
-			// \n is for new line
 
-			mEtLatitude.setText(String.valueOf(latitude));
-			mEtLongitude.setText(String.valueOf(longitude));
+		if (mID != null) {
+			updatePlaces();
 		} else {
-			// can't get location
-			// GPS or Network is not enabled
-			// Ask user to enable GPS/network in settings
-			gps.showSettingsAlert();
+			gps = new GPSTracker(PlaceInfoActivity.this);
+			// check if GPS enabled
+			if (gps.canGetLocation()) {
+				double latitude = gps.getLatitude();
+				double longitude = gps.getLongitude();
+				// \n is for new line
+
+				mEtLatitude.setText(String.valueOf(latitude));
+				mEtLongitude.setText(String.valueOf(longitude));
+			} else {
+				// can't get location
+				// GPS or Network is not enabled
+				// Ask user to enable GPS/network in settings
+				gps.showSettingsAlert();
+			}
 		}
+	}
+
+	private void updatePlaces() {
+		mLId = Long.parseLong(mID);
+
+		/*
+		 * get the activity which include all data from database according
+		 * profileId of the clicked item.
+		 */
+		mImageDS = new DataSource(this);
+		mUpdatePlaces = mImageDS.singlePlaceData(mLId);
+
+		String mLatitude = mUpdatePlaces.getmLatitude();
+		String mLongitude = mUpdatePlaces.getmLongitude();
+		String mDescription = mUpdatePlaces.getmRemarks();
+		String mPhotoPath = mUpdatePlaces.getmPhotoPath();
+		mCurrentPhotoPath = mPhotoPath;
+		if (mPhotoPath != null) {
+			File f = new File(mPhotoPath);
+			BitmapFactory.Options option = new BitmapFactory.Options();
+			option.inSampleSize = 16;
+
+			try {
+				Bitmap image = BitmapFactory.decodeStream(
+						new FileInputStream(f), null, option);
+
+				mIvPhotoView.setImageBitmap(image);
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+
+		mEtLatitude.setText(mLatitude);
+		mEtLatitude.setFocusable(false);
+		mEtLatitude.setClickable(false);
+		mEtLongitude.setText(mLongitude);
+		mEtLongitude.setFocusable(false);
+		mEtLongitude.setClickable(false);
+		mEtDescription.setText(mDescription);
+		/*
+		 * change button name
+		 */
+		mBtnInsert.setText("Update");
 	}
 
 	public void insertData(View view) {
@@ -93,125 +147,195 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 		mLatitude = mEtLatitude.getText().toString();
 		mLongitude = mEtLongitude.getText().toString();
 		mDescription = mEtDescription.getText().toString();
-		mGalery = new PlacesModel(mDate, mTime, mLatitude, mLongitude,
-				mDescription, mImage);
+		PlacesModel mGalery = new PlacesModel();
+		mGalery.setmDate(mDate);
+		mGalery.setmTime(mTime);
+		mGalery.setmLatitude(mLatitude);
+		mGalery.setmLongitude(mLongitude);
+		mGalery.setmRemarks(mDescription);
+		mGalery.setmPhotoPath(mCurrentPhotoPath);
+
 		mImageDS = new DataSource(this);
-		if (mImageDS.insert(mGalery) == true) {
-			Toast toast = Toast.makeText(this, "Successfully Saved.",
-					Toast.LENGTH_LONG);
-			toast.show();
+		if (mID != null) {
 
-			startActivity(new Intent(getApplicationContext(),
-					MyMeetingPlaceActivity.class));
+			mLId = Long.parseLong(mID);
 
+			if (mImageDS.updateData(mLId, mGalery) == true) {
+				Toast toast = Toast.makeText(this, "Successfully Updated.",
+						Toast.LENGTH_LONG);
+				toast.show();
+				startActivity(new Intent(getApplicationContext(),
+						MyMeetingPlaceActivity.class));
+				finish();
+			} else {
+				Toast toast = Toast.makeText(this, "Not Updated.",
+						Toast.LENGTH_LONG);
+				toast.show();
+			}
 		} else {
-			Toast toast = Toast.makeText(this,
-					"Error, Couldn't inserted data to database",
-					Toast.LENGTH_LONG);
-			toast.show();
+			if (mImageDS.insert(mGalery) == true) {
+				Toast toast = Toast.makeText(this, "Successfully Saved.",
+						Toast.LENGTH_LONG);
+				toast.show();
 
+				startActivity(new Intent(getApplicationContext(),
+						MyMeetingPlaceActivity.class));
+
+			} else {
+				Toast toast = Toast.makeText(this,
+						"Error, Couldn't inserted data to database",
+						Toast.LENGTH_LONG);
+				toast.show();
+
+			}
 		}
+
 	}
 
 	public void dispatchTakePictureIntent(View v) {
-		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		// Ensure that there's a camera activity to handle the intent
-		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-			// Create the File where the photo should go
-			File photoFile = null;
-			try {
-				photoFile = createImageFile();
-			} catch (IOException ex) {
-				Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT)
-						.show();
-			}
-			// Continue only if the File was successfully created
-			if (photoFile != null) {
-				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-						Uri.fromFile(photoFile));
-				startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-			}
-		}
+		captureImage();
+	}
+
+	private void captureImage() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		mFileUri = getOutputMediaFileUri(1);
+
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
+
+		// start the image capture Intent
+		startActivityForResult(intent, 100);
+
+	}
+
+	/**
+	 * Here we store the file url as it will be null after returning from camera
+	 * app
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		// save file url in bundle as it will be null on screen orientation
+		// changes
+		outState.putParcelable("file_uri", mFileUri);
 	}
 
 	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+
+		// get the file url
+		mFileUri = savedInstanceState.getParcelable("file_uri");
+	}
+
+	/**
+	 * Receiving activity result method will be called after closing the camera
+	 * */
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-			setPic();
-			galleryAddPic();
+		// if the result is capturing Image
+		if (requestCode == 100) {
+			if (resultCode == RESULT_OK) {
+				// successfully captured the image
+				// display it in image view
+				previewCapturedImage();
+				// carry out the crop operation
+
+			} // user is returning from cropping the image
+			else if (resultCode == RESULT_CANCELED) {
+				// user cancelled Image capture
+				Toast.makeText(getApplicationContext(),
+						"User cancelled image capture", Toast.LENGTH_SHORT)
+						.show();
+			} else {
+				// failed to capture image
+				Toast.makeText(getApplicationContext(),
+						"Sorry! Failed to capture image", Toast.LENGTH_SHORT)
+						.show();
+			}
 		}
 	}
 
 	/**
-	 * If user wants to load photo into gallery
+	 * Display image from a path to ImageView
 	 */
-	private void galleryAddPic() {
-		Intent mediaScanIntent = new Intent(
-				Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-		File f = new File(mCurrentPhotoPath);
-		Uri contentUri = Uri.fromFile(f);
-		mediaScanIntent.setData(contentUri);
-		this.sendBroadcast(mediaScanIntent);
+	private void previewCapturedImage() {
+		try {
+			// mImgPreview.setVisibility(View.VISIBLE);
+			// bimatp factory
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			/**
+			 * downsizing image as it throws OutOfMemory Exception for larger
+			 * images
+			 */
+			options.inSampleSize = 8; // should be power of 2.
+			Bitmap bitmap = BitmapFactory.decodeFile(mFileUri.getPath(),
+					options);
+
+			mIvPhotoView.setImageBitmap(bitmap);
+
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 	}
 
-	@SuppressWarnings("deprecation")
-	private void setPic() {
-		// Get the dimensions of the View
-		int width = mIvPhotoView.getWidth();
-		int height = mIvPhotoView.getHeight();
+	/**
+	 * ------------ Helper Methods ----------------------
+	 * */
 
-		// Get the dimensions of the bitmap
-		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-		bmOptions.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-		int photoW = bmOptions.outWidth;
-		int photoH = bmOptions.outHeight;
-
-		// Determine how much to scale down the image
-		int scaleFactor = Math.min(photoW / width, photoH / height);
-
-		// Decode the image file into a Bitmap sized to fill the View
-		bmOptions.inJustDecodeBounds = false;
-		bmOptions.inSampleSize = scaleFactor;
-		bmOptions.inPurgeable = true;
-
-		Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);// bmOptions
-		mIvPhotoView.setImageBitmap(bitmap);
-		mImage = getBytes(bitmap);
+	/**
+	 * Creating file uri to store image/video
+	 */
+	public Uri getOutputMediaFileUri(int type) {
+		return Uri.fromFile(getOutputMediaFile(type));
 	}
 
-	// convert from bitmap to byte array
-	public static byte[] getBytes(Bitmap bitmap) {
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 0, stream);
-		return stream.toByteArray();
-	}
+	/**
+	 * returning image / video
+	 */
+	private static File getOutputMediaFile(int type) {
 
-	// convert from byte array to bitmap
-	public static Bitmap getImage(byte[] image) {
-		return BitmapFactory.decodeByteArray(image, 0, image.length);
-	}
+		// External sdcard mLocation
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				"Places Gallery");
 
-	private File createImageFile() throws IOException {
-		// Create an image file name
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				Log.d("Places Gallery", "Oops! Failed create "
+						+ "Places Gallery" + " directory");
+				return null;
+			}
+		}
+
+		// Create a media file mName
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
 				Locale.getDefault()).format(new Date());
-		String imageFileName = "JPEG_" + timeStamp + "_";
-		File storageDir = Environment
-				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		File image = File.createTempFile(imageFileName, /* prefix */
-				".jpg", /* suffix */
-				storageDir /* directory */
-		);
 
-		// Save a file: path for use with ACTION_VIEW intents
+		File mediaFile;
 
-		/**************************
-		 * |---- You will get the image location from this variable which you
-		 * will save into database
-		 */
-		mCurrentPhotoPath = image.getAbsolutePath();
-		return image;
+		if (type == 1) {
+
+			mediaFile = new File(mediaStorageDir.getPath() + File.separator
+					+ "IMG_" + timeStamp + ".jpg");
+			mCurrentPhotoPath = mediaFile.getAbsolutePath();
+
+
+		} else if (type == 2) {
+
+			mediaFile = new File(mediaStorageDir.getPath() + File.separator
+					+ "IMG_" + "CROPPED_" + timeStamp + ".jpg");
+
+			// Save a file: path for use with ACTION_VIEW intents
+			mCurrentPhotoPath = mediaFile.getAbsolutePath();
+		} else {
+			return null;
+		}
+
+		return mediaFile;
 	}
+
 }

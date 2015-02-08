@@ -76,9 +76,9 @@ public class VisitedPlaces extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				Log.e("Selected Item", String.valueOf(which));
 
-				/*
-				 * if (which == 0) { editData(mPosition); }
-				 */
+				if (which == 0) {
+					editData(mPosition);
+				}
 
 				if (which == 1) {
 					deleteData(mPosition);
@@ -113,12 +113,13 @@ public class VisitedPlaces extends Activity {
 		});
 	}
 
-	/*
-	 * public void editData(Integer ePosition) { Intent mEditIntent = new
-	 * Intent(getApplicationContext(), AddPublicUniversityActivity.class); Long
-	 * id = Long.parseLong(mIdList.get(ePosition)); mEditIntent.putExtra("id",
-	 * id.toString()); startActivity(mEditIntent); }
-	 */
+	public void editData(Integer ePosition) {
+		Intent mEditIntent = new Intent(getApplicationContext(),
+				PlaceInfoActivity.class);
+		Long eActivityId = Long.parseLong(mIdList.get(ePosition));
+		mEditIntent.putExtra("id", eActivityId.toString());
+		startActivity(mEditIntent);
+	}
 
 	private void setListData() {
 		DataSource mPlaceDataSource = new DataSource(this);

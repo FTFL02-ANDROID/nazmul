@@ -24,7 +24,7 @@ public class Customadapter extends ArrayAdapter<PlacesModel> {
 	private static LayoutInflater mInflater = null;
 
 	List<PlacesModel> mPlaces;
-	public byte[] mImage;
+	public String mImage;
 	String yourLatitude;
 	String yourlongitude;
 	String provider;
@@ -95,8 +95,8 @@ public class Customadapter extends ArrayAdapter<PlacesModel> {
 		holder.mId.setText(places.getmId().toString());
 		holder.mDate.setText("Date: " + places.getmDate().toString());
 		holder.mTime.setText("Time: " + places.getmTime().toString());
-		holder.mLatitude.setText("LAT: "+places.getmLatitude().toString());
-		holder.mLongitude.setText("LNG: "+places.getmLongitude().toString());
+		holder.mLatitude.setText("LAT: " + places.getmLatitude().toString());
+		holder.mLongitude.setText("LNG: " + places.getmLongitude().toString());
 		holder.mDescription.setText("Description: "
 				+ places.getmRemarks().toString());
 		holder.mDistance = (TextView) vi.findViewById(R.id.tvDistance);
@@ -137,9 +137,12 @@ public class Customadapter extends ArrayAdapter<PlacesModel> {
 			holder.mDistance.setText("Distance: "
 					+ String.valueOf(distance_bw_one_and_two) + "m");
 		}
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inSampleSize = 4;
+		Bitmap bitmap = BitmapFactory.decodeFile(places.getmPhotoPath(),
+				options);
+		holder.mIvImage.setImageBitmap(bitmap);
 
-		mImage = places.getmImage();
-		holder.mIvImage.setImageBitmap(getImage(mImage));
 		;
 
 		return vi;

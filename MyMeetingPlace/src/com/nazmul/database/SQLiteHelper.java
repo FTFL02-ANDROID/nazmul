@@ -7,8 +7,8 @@ import android.util.Log;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 
-	public static final String DATABASE_NAME = "myMeetingPlaces.db";
-	private static final int DATABASE_VERSION = 1;
+	public static final String DATABASE_NAME = "myMeetingPlace.db";
+	private static final int DATABASE_VERSION = 4;
 
 	public static final String TABLE_PLACE = "meeting_place";
 	public static final String COL_PLACE_ID = "place_id";
@@ -26,7 +26,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ " text not null," + COL_PLACE_TIME + " text not null,"
 			+ COL_PLACE_LATITUDE + " text not null," + COL_PLACE_LONGITUDE
 			+ " text not null," + COL_PLACE_DESCRIPTION + " text not null ,"
-			+ COL_IMAGE + " BLOB not null);";
+			+ COL_IMAGE + "  text not null);";
 
 	public SQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
