@@ -23,13 +23,19 @@
         android:id="@+id/viewBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/regBtn"
         android:layout_alignLeft="@+id/regBtn"
         android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/regBtn"
         android:layout_alignStart="@+id/regBtn"
         android:layout_marginBottom="90dp"
-        android:background="#000000"
+        android:background="#2196F3"
+        android:drawableLeft="@drawable/ic_action_collection"
+        android:drawableStart="@drawable/ic_action_collection"
         android:text="@string/view"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
     <Button
         android:id="@+id/regBtn"
@@ -38,20 +44,29 @@
         android:layout_above="@+id/viewBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
-        android:background="#000000"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="20dp"
+        android:background="#2196F3"
+        android:drawableLeft="@drawable/ic_action_edit"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_action_edit"
         android:text="@string/reg"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/regBtn"
-        android:layout_alignStart="@+id/title"
         android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title"
         android:layout_marginBottom="18dp"
-        android:layout_marginStart="33dp"
         android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
         android:contentDescription="@string/homepageimage"
         android:src="@drawable/location" />
 

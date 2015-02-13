@@ -1,11 +1,20 @@
 package com.nazmul.mymeetingplace;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsManager;
-import android.util.Log;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredName;
+import android.provider.ContactsContract.Data;
+import android.provider.ContactsContract.RawContacts;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -26,6 +35,7 @@ public class ContactDetails extends Activity {
 	ImageButton mBtnCall;
 	ImageButton mBtnEmail;
 	ImageButton mBtnSMS;
+	ImageButton mBtnAddContact;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +52,9 @@ public class ContactDetails extends Activity {
 		mBtnCall = (ImageButton) findViewById(R.id.ibCall);
 		mBtnEmail = (ImageButton) findViewById(R.id.ibMail);
 		mBtnSMS = (ImageButton) findViewById(R.id.ibChat);
+		mBtnAddContact = (ImageButton) findViewById(R.id.ibAddContact);
 
-		String mName = mViewContact.getmContactName();
+		final String mName = mViewContact.getmContactName();
 		final String mEmail = mViewContact.getmContactMail();
 		final String mPhone = mViewContact.getmContactPhone();
 		mEtName.setText(mName);
@@ -94,6 +105,54 @@ public class ContactDetails extends Activity {
 					Toast.makeText(getApplicationContext(), "SMS faild!",
 							Toast.LENGTH_LONG).show();
 					e.printStackTrace();
+				}
+			}
+		});
+		mBtnAddContact.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+				int rawContactInsertIndex = ops.size();
+
+				ops.add(ContentProviderOperation
+						.newInsert(RawContacts.CONTENT_URI)
+						.withValue(RawContacts.ACCOUNT_TYPE, null)
+						.withValue(RawContacts.ACCOUNT_NAME, null).build());
+				ops.add(ContentProviderOperation
+						.newInsert(Data.CONTENT_URI)
+						.withValueBackReference(Data.RAW_CONTACT_ID,
+								rawContactInsertIndex)
+						.withValue(Data.MIMETYPE,
+								StructuredName.CONTENT_ITEM_TYPE)
+						.withValue(StructuredName.DISPLAY_NAME, mName) // Name
+																		// of
+																		// the
+																		// person
+						.build());
+				ops.add(ContentProviderOperation
+						.newInsert(Data.CONTENT_URI)
+						.withValueBackReference(
+								ContactsContract.Data.RAW_CONTACT_ID,
+								rawContactInsertIndex)
+						.withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
+						.withValue(Phone.NUMBER, mPhone) // Number of the person
+						.withValue(Phone.TYPE, Phone.TYPE_MOBILE).build()); // Type
+																			// of
+																			// mobile
+																			// number
+				try {
+					ContentProviderResult[] res = getContentResolver()
+							.applyBatch(ContactsContract.AUTHORITY, ops);
+
+					Toast.makeText(getApplicationContext(),
+							"Successfully  Contract Added !!!!!!!",
+							Toast.LENGTH_LONG).show();
+				} catch (RemoteException e) {
+					// error
+				} catch (OperationApplicationException e) {
+					// error
 				}
 			}
 		});

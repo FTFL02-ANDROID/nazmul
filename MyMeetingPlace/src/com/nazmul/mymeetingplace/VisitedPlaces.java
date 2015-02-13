@@ -127,7 +127,7 @@ public class VisitedPlaces extends Activity {
 
 	public void editData(Integer ePosition) {
 		Intent mEditIntent = new Intent(getApplicationContext(),
-				PlaceInfoActivity.class);
+				PlaceUpdateActivity.class);
 		Long eActivityId = Long.parseLong(mIdList.get(ePosition));
 		mEditIntent.putExtra("id", eActivityId.toString());
 		startActivity(mEditIntent);

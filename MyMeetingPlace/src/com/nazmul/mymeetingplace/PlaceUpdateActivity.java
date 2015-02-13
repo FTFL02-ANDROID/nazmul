@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.nazmul.database.DataSource;
 import com.nazmul.util.PlacesModel;
 
-public class PlaceInfoActivity<MainActivity> extends Activity {
+public class PlaceUpdateActivity<MainActivity> extends Activity {
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 	ImageView mIvPhotoView = null;
 	static String mCurrentPhotoPath = "";
@@ -90,7 +90,7 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 		if (mID != null) {
 			updatePlaces();
 		} else {
-			gps = new GPSTracker(PlaceInfoActivity.this);
+			gps = new GPSTracker(PlaceUpdateActivity.this);
 			// check if GPS enabled
 			if (gps.canGetLocation()) {
 				double latitude = gps.getLatitude();
@@ -160,71 +160,65 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 	}
 
 	public void insertData(View view) {
-		if (mCam) {
-			Time today = new Time(Time.getCurrentTimezone());
-			today.setToNow();
 
-			mDate = today.monthDay + "/" + today.month + "/" + today.year;
-			mTime = today.format("%k:%M:%S");
-			mLatitude = mEtLatitude.getText().toString();
-			mLongitude = mEtLongitude.getText().toString();
-			mDescription = mEtDescription.getText().toString();
-			mName = mEtName.getText().toString();
-			mEmail = mEtEmail.getText().toString();
-			mPhone = mEtPhone.getText().toString();
+		Time today = new Time(Time.getCurrentTimezone());
+		today.setToNow();
 
-			PlacesModel mGalery = new PlacesModel();
-			mGalery.setmDate(mDate);
-			mGalery.setmTime(mTime);
-			mGalery.setmLatitude(mLatitude);
-			mGalery.setmLongitude(mLongitude);
-			mGalery.setmRemarks(mDescription);
-			mGalery.setmPhotoPath(mCurrentPhotoPath);
-			mGalery.setmContactName(mName);
-			mGalery.setmContactMail(mEmail);
-			mGalery.setmContactPhone(mPhone);
+		mDate = today.monthDay + "/" + today.month + "/" + today.year;
+		mTime = today.format("%k:%M:%S");
+		mLatitude = mEtLatitude.getText().toString();
+		mLongitude = mEtLongitude.getText().toString();
+		mDescription = mEtDescription.getText().toString();
+		mName = mEtName.getText().toString();
+		mEmail = mEtEmail.getText().toString();
+		mPhone = mEtPhone.getText().toString();
 
-			mImageDS = new DataSource(this);
-			if (mID != null) {
+		PlacesModel mGalery = new PlacesModel();
+		mGalery.setmDate(mDate);
+		mGalery.setmTime(mTime);
+		mGalery.setmLatitude(mLatitude);
+		mGalery.setmLongitude(mLongitude);
+		mGalery.setmRemarks(mDescription);
+		mGalery.setmPhotoPath(mCurrentPhotoPath);
+		mGalery.setmContactName(mName);
+		mGalery.setmContactMail(mEmail);
+		mGalery.setmContactPhone(mPhone);
 
-				mLId = Long.parseLong(mID);
+		mImageDS = new DataSource(this);
+		if (mID != null) {
 
-				if (mImageDS.updateData(mLId, mGalery) == true) {
-					Toast toast = Toast.makeText(this, "Successfully Updated.",
-							Toast.LENGTH_LONG);
-					toast.show();
-					startActivity(new Intent(getApplicationContext(),
-							MyMeetingPlaceActivity.class));
-					finish();
-				} else {
-					Toast toast = Toast.makeText(this, "Not Updated.",
-							Toast.LENGTH_LONG);
-					toast.show();
-				}
+			mLId = Long.parseLong(mID);
+
+			if (mImageDS.updateData(mLId, mGalery) == true) {
+				Toast toast = Toast.makeText(this, "Successfully Updated.",
+						Toast.LENGTH_LONG);
+				toast.show();
+				startActivity(new Intent(getApplicationContext(),
+						MyMeetingPlaceActivity.class));
+				finish();
 			} else {
-				if (mImageDS.insert(mGalery) == true) {
-					Toast toast = Toast.makeText(this, "Successfully Saved.",
-							Toast.LENGTH_LONG);
-					toast.show();
-
-					startActivity(new Intent(getApplicationContext(),
-							MyMeetingPlaceActivity.class));
-
-				} else {
-					Toast toast = Toast.makeText(this,
-							"Error, Couldn't inserted data to database",
-							Toast.LENGTH_LONG);
-					toast.show();
-
-				}
+				Toast toast = Toast.makeText(this, "Not Updated.",
+						Toast.LENGTH_LONG);
+				toast.show();
 			}
-
 		} else {
-			Toast toast = Toast.makeText(this, "Take Picture, Please!",
-					Toast.LENGTH_LONG);
-			toast.show();
+			if (mImageDS.insert(mGalery) == true) {
+				Toast toast = Toast.makeText(this, "Successfully Saved.",
+						Toast.LENGTH_LONG);
+				toast.show();
 
+				startActivity(new Intent(getApplicationContext(),
+						MyMeetingPlaceActivity.class));
+
+			} else {
+				Toast toast = Toast.makeText(this,
+						"Error, Couldn't inserted data to database",
+						Toast.LENGTH_LONG);
+				toast.show();
+
+			}
 		}
+
 	}
 
 	public void dispatchTakePictureIntent(View v) {
