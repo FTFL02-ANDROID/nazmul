@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contactdetails"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/etContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:contentDescription="@string/contact"
+            android:src="@drawable/ic_action_user_add" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:ems="10"
+            android:inputType="textEmailAddress" >
+            
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/ibMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:contentDescription="@string/email"
+            android:src="@drawable/ic_action_mail" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/ibCall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.77"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#000000"
+            android:contentDescription="@string/phone"
+            android:src="@drawable/ic_action_call" />
+
+        <ImageButton
+            android:id="@+id/ibChat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:background="#000000"
+            android:contentDescription="@string/phone"
+            android:src="@drawable/ic_action_chat" />
+
+    </LinearLayout>
+
+</LinearLayout>

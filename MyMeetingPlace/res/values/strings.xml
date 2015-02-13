@@ -18,10 +18,14 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="distance">Distance</string>
-        <string name="listimage">Image</string>
-        <string name="visited">Visited Place</string>
-        <string name="location">Current Location</string>
-        <string name="back">BACK</string>
-    
+    <string name="listimage">Image</string>
+    <string name="visited">Visited Place</string>
+    <string name="location">Current Location</string>
+    <string name="back">BACK</string>
+    <string name="homepageimage">homepageimage</string>
+    <string name="contact">Contact Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="contactdetails">Contact Details</string>
 
 </resources>

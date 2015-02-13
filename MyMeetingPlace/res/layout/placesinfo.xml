@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true" >
+    android:fillViewport="true" 
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,12 +38,15 @@
             android:layout_marginTop="20dp"
             android:onClick="dispatchTakePictureIntent"
             android:padding="14dp"
+            android:background="#000000"
             android:text="@string/takePhoto"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
+            android:drawableStart="@drawable/ic_action_photo"
+            android:drawableLeft="@drawable/ic_action_photo"
             android:typeface="monospace" />
 
         <TextView
-            android:id="@+id/tvetLatitude"
+            android:id="@+id/tvLatitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -61,7 +65,7 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/tvetLongitude"
+            android:id="@+id/tvLongitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -80,7 +84,7 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/tvetDescription"
+            android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -96,6 +100,60 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textMultiLine"
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/tvContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/contact"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <EditText
+            android:id="@+id/etContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/tvContactEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/email"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <EditText
+            android:id="@+id/etContactEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/tvContactNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/phone"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <EditText
+            android:id="@+id/etContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
             android:textColor="#000000" />
 
         <Button

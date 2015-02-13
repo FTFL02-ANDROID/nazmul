@@ -65,7 +65,8 @@ public class VisitedPlaces extends Activity {
 		setListData();
 		List<PlacesModel> galery_list = mPlaceDataSource.allPlaces();
 		Customadapter arrayAdapter = new Customadapter(this, galery_list);
-		final String[] option = new String[] { "Edit Data", "Delete Data" };
+		final String[] option = new String[] { "View Contact Details",
+				"Edit Data", "Delete Data" };
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.select_dialog_item, option);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -75,12 +76,15 @@ public class VisitedPlaces extends Activity {
 
 			public void onClick(DialogInterface dialog, int which) {
 				Log.e("Selected Item", String.valueOf(which));
-
 				if (which == 0) {
-					editData(mPosition);
+					viewContact(mPosition);
 				}
 
 				if (which == 1) {
+					editData(mPosition);
+				}
+
+				if (which == 2) {
 					deleteData(mPosition);
 				}
 			}
@@ -111,6 +115,14 @@ public class VisitedPlaces extends Activity {
 				startActivity(i);
 			}
 		});
+	}
+
+	public void viewContact(Integer ePosition) {
+		Intent mViewIntent = new Intent(getApplicationContext(),
+				ContactDetails.class);
+		Long eActivityId = Long.parseLong(mIdList.get(ePosition));
+		mViewIntent.putExtra("id", eActivityId.toString());
+		startActivity(mViewIntent);
 	}
 
 	public void editData(Integer ePosition) {

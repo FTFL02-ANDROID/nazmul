@@ -54,6 +54,9 @@ public class DataSource {
 		cv.put(SQLiteHelper.COL_PLACE_LONGITUDE, meetingPlaces.getmLongitude());
 		cv.put(SQLiteHelper.COL_PLACE_DESCRIPTION, meetingPlaces.getmRemarks());
 		cv.put(SQLiteHelper.COL_IMAGE, meetingPlaces.getmPhotoPath());
+		cv.put(SQLiteHelper.COL_CONTACT_NAME, meetingPlaces.getmContactName());
+		cv.put(SQLiteHelper.COL_EMAIL, meetingPlaces.getmContactMail());
+		cv.put(SQLiteHelper.COL_PHONE, meetingPlaces.getmContactPhone());
 
 		Long check = mPlaceDatabase.insert(SQLiteHelper.TABLE_PLACE, null, cv);
 		mPlaceDatabase.close();
@@ -80,6 +83,10 @@ public class DataSource {
 		cvUpdate.put(SQLiteHelper.COL_PLACE_DESCRIPTION,
 				eUpdateObject.getmRemarks());
 		cvUpdate.put(SQLiteHelper.COL_IMAGE, eUpdateObject.getmPhotoPath());
+		cvUpdate.put(SQLiteHelper.COL_CONTACT_NAME,
+				eUpdateObject.getmContactName());
+		cvUpdate.put(SQLiteHelper.COL_EMAIL, eUpdateObject.getmContactMail());
+		cvUpdate.put(SQLiteHelper.COL_PHONE, eUpdateObject.getmContactPhone());
 
 		int check = mPlaceDatabase.update(SQLiteHelper.TABLE_PLACE, cvUpdate,
 				SQLiteHelper.COL_PLACE_ID + "=" + eId, null);
@@ -119,7 +126,8 @@ public class DataSource {
 						SQLiteHelper.COL_PLACE_LATITUDE,
 						SQLiteHelper.COL_PLACE_LONGITUDE,
 						SQLiteHelper.COL_PLACE_DESCRIPTION,
-						SQLiteHelper.COL_IMAGE,
+						SQLiteHelper.COL_IMAGE, SQLiteHelper.COL_CONTACT_NAME,
+						SQLiteHelper.COL_EMAIL, SQLiteHelper.COL_PHONE,
 
 				}, null, null, null, null, null);
 
@@ -142,10 +150,17 @@ public class DataSource {
 							.getColumnIndex("description"));
 					String mImage = mCursor.getString(mCursor
 							.getColumnIndex("image"));
+					String mName = mCursor.getString(mCursor
+							.getColumnIndex("name"));
+					String mEmail = mCursor.getString(mCursor
+							.getColumnIndex("email"));
+					String mPhone = mCursor.getString(mCursor
+							.getColumnIndex("phone"));
 
 					mPlaces.add(new PlacesModel(mActivityId, mActivityDate,
 							mActivityTime, mActivityLatitude,
-							mActivityLongitude, mActivityDescription, mImage));
+							mActivityLongitude, mActivityDescription, mImage,
+							mName, mEmail, mPhone));
 
 				} while (mCursor.moveToNext());
 			}
@@ -165,6 +180,9 @@ public class DataSource {
 		String mLongitude;
 		String mRemarks;
 		String mPhotoPath;
+		String mName;
+		String mEmail;
+		String mPhone;
 
 		Cursor mUpdateCursor = mPlaceDatabase.query(SQLiteHelper.TABLE_PLACE,
 				new String[] { SQLiteHelper.COL_PLACE_ID,
@@ -173,8 +191,10 @@ public class DataSource {
 						SQLiteHelper.COL_PLACE_LATITUDE,
 						SQLiteHelper.COL_PLACE_LONGITUDE,
 						SQLiteHelper.COL_PLACE_DESCRIPTION,
-						SQLiteHelper.COL_IMAGE, }, SQLiteHelper.COL_PLACE_ID
-						+ "=" + mActivityId, null, null, null, null);
+						SQLiteHelper.COL_IMAGE, SQLiteHelper.COL_CONTACT_NAME,
+						SQLiteHelper.COL_EMAIL, SQLiteHelper.COL_PHONE, },
+				SQLiteHelper.COL_PLACE_ID + "=" + mActivityId, null, null,
+				null, null);
 
 		mUpdateCursor.moveToFirst();
 
@@ -192,10 +212,16 @@ public class DataSource {
 				.getColumnIndex(SQLiteHelper.COL_PLACE_DESCRIPTION));
 		mPhotoPath = mUpdateCursor.getString(mUpdateCursor
 				.getColumnIndex(SQLiteHelper.COL_IMAGE));
+		mName = mUpdateCursor.getString(mUpdateCursor
+				.getColumnIndex(SQLiteHelper.COL_CONTACT_NAME));
+		mEmail = mUpdateCursor.getString(mUpdateCursor
+				.getColumnIndex(SQLiteHelper.COL_EMAIL));
+		mPhone = mUpdateCursor.getString(mUpdateCursor
+				.getColumnIndex(SQLiteHelper.COL_PHONE));
 
 		mUpdateCursor.close();
 		informationObject = new PlacesModel(mId, mDate, mTime, mLatitude,
-				mLongitude, mRemarks, mPhotoPath);
+				mLongitude, mRemarks, mPhotoPath, mName, mEmail, mPhone);
 		this.close();
 		return informationObject;
 	}

@@ -35,6 +35,9 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 	EditText mEtDate = null;
 	EditText mEtTime = null;
 	EditText mEtLatitude = null;
+	EditText mEtName = null;
+	EditText mEtEmail = null;
+	EditText mEtPhone = null;
 	EditText mEtLongitude = null;
 	EditText mEtDescription = null;
 	EditText mTvHospitalTitle = null;
@@ -44,6 +47,9 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 	String mLatitude = "";
 	String mLongitude = "";
 	String mDescription = "";
+	String mName = "";
+	String mEmail = "";
+	String mPhone = "";
 	String mImage;
 	PlacesModel mGalery = null;
 	String mID = "";
@@ -66,10 +72,17 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 		mID = mActivityIntent.getStringExtra("id");
 
 		mEtLatitude = (EditText) this.findViewById(R.id.etLatitude);
+		mEtName = (EditText) this.findViewById(R.id.etContact);
+		mEtEmail = (EditText) this.findViewById(R.id.etContactEmail);
+		mEtPhone = (EditText) this.findViewById(R.id.etContactNumber);
 		mEtLongitude = (EditText) this.findViewById(R.id.etLongitude);
 		mEtDescription = (EditText) this.findViewById(R.id.etDescription);
 		mBtnInsert = (Button) this.findViewById(R.id.btnInsert);
 		mIvPhotoView = (ImageView) this.findViewById(R.id.ivTakePhoto);
+		mEtLatitude.setFocusable(false);
+		mEtLatitude.setClickable(false);
+		mEtLongitude.setFocusable(false);
+		mEtLongitude.setClickable(false);
 
 		// create class object
 
@@ -106,6 +119,9 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 
 		String mLatitude = mUpdatePlaces.getmLatitude();
 		String mLongitude = mUpdatePlaces.getmLongitude();
+		String mName=mUpdatePlaces.getmContactName();
+		String mEmail=mUpdatePlaces.getmContactMail();
+		String mPhone=mUpdatePlaces.getmContactPhone();
 		String mDescription = mUpdatePlaces.getmRemarks();
 		String mPhotoPath = mUpdatePlaces.getmPhotoPath();
 		mCurrentPhotoPath = mPhotoPath;
@@ -132,6 +148,12 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 		mEtLongitude.setFocusable(false);
 		mEtLongitude.setClickable(false);
 		mEtDescription.setText(mDescription);
+		mEtName.setText(mName);
+		mEtEmail.setText(mEmail);
+		mEtPhone.setText(mPhone);
+
+
+
 		/*
 		 * change button name
 		 */
@@ -147,6 +169,12 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 		mLatitude = mEtLatitude.getText().toString();
 		mLongitude = mEtLongitude.getText().toString();
 		mDescription = mEtDescription.getText().toString();
+		mName = mEtName.getText().toString();
+		mEmail = mEtEmail.getText().toString();
+		mPhone = mEtPhone.getText().toString();
+
+
+		
 		PlacesModel mGalery = new PlacesModel();
 		mGalery.setmDate(mDate);
 		mGalery.setmTime(mTime);
@@ -154,6 +182,10 @@ public class PlaceInfoActivity<MainActivity> extends Activity {
 		mGalery.setmLongitude(mLongitude);
 		mGalery.setmRemarks(mDescription);
 		mGalery.setmPhotoPath(mCurrentPhotoPath);
+		mGalery.setmContactName(mName);
+		mGalery.setmContactMail(mEmail);
+		mGalery.setmContactPhone(mPhone);
+		
 
 		mImageDS = new DataSource(this);
 		if (mID != null) {
