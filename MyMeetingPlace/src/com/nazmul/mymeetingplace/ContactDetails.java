@@ -1,20 +1,13 @@
 package com.nazmul.mymeetingplace;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
-import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
 import android.content.Intent;
-import android.content.OperationApplicationException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.CommonDataKinds.StructuredName;
-import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.RawContacts;
+import android.provider.ContactsContract.Intents;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -112,48 +105,16 @@ public class ContactDetails extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
-				ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-				int rawContactInsertIndex = ops.size();
-
-				ops.add(ContentProviderOperation
-						.newInsert(RawContacts.CONTENT_URI)
-						.withValue(RawContacts.ACCOUNT_TYPE, null)
-						.withValue(RawContacts.ACCOUNT_NAME, null).build());
-				ops.add(ContentProviderOperation
-						.newInsert(Data.CONTENT_URI)
-						.withValueBackReference(Data.RAW_CONTACT_ID,
-								rawContactInsertIndex)
-						.withValue(Data.MIMETYPE,
-								StructuredName.CONTENT_ITEM_TYPE)
-						.withValue(StructuredName.DISPLAY_NAME, mName) // Name
-																		// of
-																		// the
-																		// person
-						.build());
-				ops.add(ContentProviderOperation
-						.newInsert(Data.CONTENT_URI)
-						.withValueBackReference(
-								ContactsContract.Data.RAW_CONTACT_ID,
-								rawContactInsertIndex)
-						.withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
-						.withValue(Phone.NUMBER, mPhone) // Number of the person
-						.withValue(Phone.TYPE, Phone.TYPE_MOBILE).build()); // Type
-																			// of
-																			// mobile
-																			// number
-				try {
-					ContentProviderResult[] res = getContentResolver()
-							.applyBatch(ContactsContract.AUTHORITY, ops);
-
-					Toast.makeText(getApplicationContext(),
-							"Successfully  Contract Added !!!!!!!",
-							Toast.LENGTH_LONG).show();
-				} catch (RemoteException e) {
-					// error
-				} catch (OperationApplicationException e) {
-					// error
-				}
+				// Creates a new Intent to insert a contact
+				Intent intent = new Intent(Intents.Insert.ACTION);
+				// Sets the MIME type to match the Contacts Provider
+				intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+				intent.putExtra(Intents.Insert.EMAIL, mEmail);
+				intent.putExtra(Intents.Insert.EMAIL_TYPE,
+						CommonDataKinds.Email.TYPE_WORK);
+				intent.putExtra(Intents.Insert.PHONE, mPhone);
+				intent.putExtra(Intents.Insert.PHONE_TYPE, Phone.TYPE_WORK);
+				startActivity(intent);
 			}
 		});
 
