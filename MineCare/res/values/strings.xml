@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iCare</string>
+    <string name="general_fragment_text">This is general fragment</string>
+    <string name="vaccination_fragment_text">This is vaccination fragment</string>
+    <string name="growth_fragment_text">This is growth fragment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="home_text">FTFL Navigation Drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="vaccineTextView">Vaccination</string>
+    <string name="dietTextView">Diet Chart</string>
+
+    <string-array name="drawer_menu_array">
+        <item>Profile</item>
+        <item>Emergency !</item>
+        <item>General Health Tips</item>
+        <item>Vaccination Details</item>
+        <item>Gallery</item>
+    </string-array>
+
+    <string name="textWeight">Weight</string>
+    <string name="textName">Name</string>
+    <string name="phone">Phone</string>
+    <string name="textHeight">Height</string>
+    <string name="hintName">enter name</string>
+    <string name="buttonSubmit">SAVE</string>
+    <string name="hintHeight">enter height(cm)</string>
+    <string name="gender">Gender</string>
+    <string name="textCreateProfileHeader"> Create Profile</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="textGender">Gender</string>
+    <string name="radioButtonMale">Male</string>
+    <string name="radioButtonFemale">Female</string>
+    <string name="textAge">Age</string>
+    <string name="hintWeight">enter weight(kg)</string>
+    <string name="hintAge">enter age</string>
+    <string name="textBloodGroup">Blood Group</string>
+    <string name="hintBloodGroup">enter blood group</string>
+    <string name="addDietTextView">Add Your Diet</string>
+    <string name="feastNameText">Meal Course</string>
+    <string name="feastNameView">enter meal course</string>
+    <string name="pickDayTextView">"Pick a Day"</string>
+    <string name="pickTimeTextView">"Pick a Time"</string>
+    <string name="dateEditText">"Select date"</string>
+    <string name="timeEditText">"Select time"</string>
+    <string name="menuView">"Add menu"</string>
+    <string name="alarmCheckBox">"Set alarm"</string>
+    <string name="addDietChartButton">"Add Diet"</string>
+    <string name="menuText">"Menu "</string>
+    <string name="headerDoctorProfile">Doctor Profile</string>
+    <string name="tvDoctorName">Name</string>
+    <string name="etDoctorName">enter doctor name</string>
+    <string name="tvSpeciality">Speciality</string>
+    <string name="etSpeciality">enter speciality</string>
+    <string name="tvPhone">Phone</string>
+    <string name="phoneEditText">enter phone number</string>
+    <string name="emailTextView">Email</string>
+    <string name="emailEditText">enter email</string>
+    <string name="chamberTextView">Chamber</string>
+    <string name="chamberEditText">enter chamber location</string>
+    <string name="medicalhistoryTextView">Medical History</string>
+    <string name="takePresciptionPhoto">Capture Prescription</string>
+    <string name="dateTextView">Date</string>
+    <string name="capturedImage">capture image</string>
+    <string name="doctorTextView">Doctor</string>
+    <string name="doctorEditText">enter doctor name</string>
+    <string name="purposeTextView">Purpose</string>
+    <string name="purposeEditText">enter purpose</string>
+
+    <!-- vaccine list dialog -->
+    <string name="view_vaccine">View Vaccine</string>
+    <string name="edit_vaccine">Edit Vaccine</string>
+    <string name="delete_vaccine">Delete Vaccine</string>
+
+    <!-- doctor list dialog -->
+    <string name="view_doctor">View Doctor</string>
+    <string name="edit_doctor">Edit Doctor</string>
+    <string name="delete_doctor">Delete Doctor</string>
+
+    <!-- medical history list dialog -->
+    <string name="view_medicalHistory">View Medical History</string>
+    <string name="edit_medicalHistory">Edit Medical History</string>
+    <string name="delete_medicalHistory">Delete Medical History</string>
+
+    <!-- View Diet -->
+    <string name="selectedDate">Selected Date</string>
+    <string name="selectedTime">Selected Time</string>
+    <string name="options">Select One</string>
+    <string name="delete_dialog_title">Confirm Delet ???</string>
+    <string name="delete_dialog_message">Are you sure you want delete this??</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <!-- Edit Diet -->
+    <string name="selectedDate">Selected Date</string>
+    <string name="selectedTime">Selected Time</string>
+    <string name="editDietTextView">Edit Diet</string>
+
+    <!-- vaccine -->
+
+    <string name="vaccinationTextView">Add Vaccination Information</string>
+    <string name="vaccineNameTextView">Vaccine Name</string>
+    <string name="vaccineNameEditText">Enter Vaccine Name</string>
+    <string name="vaccineStatusTextView">Note</string>
+    <string name="vaccineStatusEditText">current status</string>
+    <string name="vaccineText">Vaccine</string>
+
+    <!-- vaccination Spinner -->
+    <string-array name="sp">
+        <item>Diptheria</item>
+        <item>Tetanus</item>
+        <item>Polio</item>
+        <item>Measles</item>
+        <item>Hapatytis B</item>
+    </string-array>
+
+    <!-- vaccination Spinner -->
+    <string-array name="vaccineListSpinner">
+        <item>Today</item>
+        <item>Upcoming</item>
+        <item>Given</item>
+    </string-array>
+
+    <!-- profile gender Spinner -->
+    <string-array name="genderListSpinner">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!-- Strings into programm -->
+
+    <string name="title">View Diet Chart Details</string>
+    <string name="view_diet">View diet</string>
+    <string name="edit_diet">Edit diet</string>
+    <string name="delete_diet">Delete diet</string>
+    <string name="options">Select One</string>
+    <string name="delete_dialog_title">Confirm Delet ???</string>
+    <string name="delete_dialog_message">Are you sure you want delete this??</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="hint">Shake The Phone To call</string>
+    <string name="heathTips1">1. Eat a healthy diet</string>
+    <string name="healthTips2">2.  Replace sweetened drinks with plenty of pure,clean water</string>
+    <string name="healthTips3">3.   Avoid all genetically engineered food</string>
+    <string name="healthTips4">4.   Eat plenty of raw food</string>
+    <string name="healthTips5">5.   Exercise Regularly</string>
+    <string name="healthTips6">6.   Get an appropriate amount of sunlight to optimize your vitamin D levels</string>
+    <string name="healthTips7">7.   Get plenty of sleep</string>
+    <string name="healthTips8">8.   Manage your stress</string>
+    <string name="vaccine_name">Vaccine</string>
+    <string name="description">Details </string>
+    <string name="side_effect">Side Effect</string>
+    <string name="disease1">Hepatitis B</string>
+    <string name="desc1">Hepatitis B is a serious disease caused by a virus that attacks the liver. The virus, which is called hepatitis B virus (HBV), can cause lifelong infection, cirrhosis (scarring) of the liver, liver cancer, liver failure, and death.</string>
+    <string name="se1">Common side effects include pain/soreness/redness/swelling at the injection site, fever, headache, tiredness, sore throat, nausea, diarrhea, loss of appetite, and dizziness.</string>
+    <string name="disease2">"Rotavirus "</string>
+    <string name="desc2">Rotavirus vaccination is the best way to protect children against rotavirus disease. The vaccines are very effective at preventing severe rotavirus disease in infants and young children.</string>
+    <string name="se2">Vaccine recipients may have slightly increased risk of developing mild diarrhoea or vomiting in the week after the vaccine administration. Serious side effects are very rare. There is also a slightly increased risk of intussusception, a rare form of bowel blockage, associated with the rotavirus vaccine.</string>
+    <string name="disease3">Measles</string>
+    <string name="desc3">The measles, mumps, and rubella (MMR) vaccine is recommended for all children. It protects against three potentially serious illnesses. It is a two-part vaccination, and in most states, you must prove your children have gotten it before they can enter school.</string>
+    <string name="se3">Getting MMRV vaccine is much safer than getting measles, mumps, rubella, or chickenpox. Most children who get MMRV vaccine do not have any problems with it. Mild rash (about 1 child out of 20). Swelling of glands in the cheeks or neck (rare).</string>
+    <string name="disease4">Polio</string>
+    <string name="desc4">Polio, or poliomyelitis, is a crippling and potentially deadly infectious disease. It is caused by the poliovirus. The virus spreads from person to person and can invade an infected person’s brain and spinal cord, causing paralysis (can’t move parts of the body).</string>
+    <string name="se4">It is a vaccine that works by exposing you to a small dose of the bacteria or a protein from the bacteria, which causes the body to develop immunity to the disease. Common side effects include redness/swelling/tenderness at the injection site, fever, irritability, and tiredness.</string>
+    <string name="disease5">Tetanus</string>
+    <string name="desc5">Tetanus (lockjaw) is a serious disease that causes painful tightening of the muscles, usually all over the body. It can lead to \"locking\" of the jaw so the victim cannot open his mouth or swallow. Tetanus leads to death in about 1 in 10 cases. Several vaccines are used to prevent tetanus among children, adolescents, and adults including DTaP, Tdap, DT, and Td.</string>
+    <string name="se5">Less serious side effects of tetanus toxoid may include: fever, general ill feeling; nausea; feeling light-headed; joint pain; or. redness, pain, tenderness, swelling, or a lump where the shot was given.</string>
+    <string name="all">All vaccination list</string>
+    <string name="ex">Expired Vaccination List</string>
+
+</resources>

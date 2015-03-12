@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ftflproject.ftflicareapplication"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/diet"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- Splash screen -->
+        <activity
+            android:name="com.nazmul.minecare.SplashScreenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.nazmul.minecare.DashBoardActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.nazmul.minecare.DietListActivity"
+            android:label="Diet Chart"
+            android:parentActivityName="com.example.DashBoardActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ParentActivity" />
+        </activity>
+        <activity
+            android:name="com.nazmul.minecare.UpcomingDietListActivity"
+            android:label="Diet Chart"
+            android:parentActivityName="com.example.DietListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ParentActivity" />
+        </activity>
+        <activity
+            android:name="com.nazmul.minecare.VaccinationListActivity"
+            android:label="Vaccination"
+            android:parentActivityName="com.example.DietListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ParentActivity" />
+        </activity>
+        <activity
+            android:name="com.nazmul.minecare.DoctorListActivity"
+            android:label="Doctor"
+            android:parentActivityName="com.example.DietListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ParentActivity" />
+        </activity>
+        <activity
+            android:name="com.nazmul.minecare.MedicalHistoryListActivity"
+            android:label="Medical History"
+            android:parentActivityName="com.example.DietListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ParentActivity" />
+        </activity>
+    </application>
+
+</manifest>

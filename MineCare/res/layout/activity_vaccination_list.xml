@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical" >
+
+        <Spinner
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/selectList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".20"
+            android:background="#FF5722" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/vaccinationListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".2"
+            android:background="#FF5722"
+            android:gravity="center"
+            android:text="Vaccination List"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" >
+
+            <ListView
+                android:id="@+id/vaccineList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:listSelector="@android:color/transparent"
+                android:transcriptMode="alwaysScroll" >
+            </ListView>
+
+            <ImageButton
+                android:id="@+id/fab_image_button"
+                android:layout_width="@dimen/fab_button_diameter"
+                android:layout_height="@dimen/fab_button_diameter"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+                android:layout_marginRight="@dimen/fab_button_margin_right"
+                android:background="@drawable/fab_shape"
+                android:onClick="add"
+                android:src="@drawable/fab_ic_add"
+                android:tint="@android:color/white" />
+        </RelativeLayout>
+        
+        
+    </LinearLayout>
+
+    
+    </LinearLayout>
+        
+    
+
